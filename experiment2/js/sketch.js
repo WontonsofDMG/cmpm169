@@ -1,4 +1,6 @@
-let circleX, circleY, circleSize;
+let circleSize = 50;
+let circleX;
+let circleY;
 let redLevel = 0;
 let threshold = 255; // Max red value before the circle starts erasing
 let drawingIntensity = 0; // Tracks how much the user has drawn
@@ -10,22 +12,27 @@ let redIncrementFactor = 10; // Initial rate at which the circle turns red
 
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(800, 600);
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
   background(255);
+  $(window).resize(resizeScreen);
+  resizeScreen();
 
-  circleSize = 50;
+  // Set initial circle position
   circleX = circleSize / 2 + 10;
-  circleY = height - circleSize / 2 - 10;
+  circleY = circleSize / 2 + 10;
 }
 
 function draw() {
   if (!erasing) {
-    // Draw the circle at the bottom left
+    // Draw the circle at the top left
     fill(255, 255 - redLevel, 255 - redLevel); // Slowly turns red
     stroke(0); // Black outline
     strokeWeight(1);
     ellipse(circleX, circleY, circleSize);
+
+    // Increment redLevel
+    redLevel += redIncrementFactor;
 
     // Check if the threshold is hit
     if (redLevel >= threshold) {
@@ -108,28 +115,6 @@ function resetAfterErasing() {
   // Increase attributes
   eraseSpeed += 1; // Increase speed
   shakeAmount += 2; // Increase shake intensity
-  if (redIncrementFactor>1){
-  redIncrementFactor -= 1; // Turn red faster (decrease increment factor)
-  }
-  // Reset states
-  drawingIntensity = 0;
-  redLevel = 0;
-  circleX = circleSize / 2 + 10;
-  circleY = height - circleSize / 2 - 10;
-
-  background(255); // Fully clear the canvas
-}
-
-
-
-function resetAfterErasing() {
-  // Reset the state after erasing is complete
-  erasing = false;
-  allErased = false;
-
-  // Increase attributes
-  eraseSpeed += 1; // Increase speed
-  shakeAmount += 2; // Increase shake intensity
   if (redIncrementFactor > 1) {
     redIncrementFactor -= 1; // Turn red faster (decrease increment factor)
   }
@@ -140,4 +125,8 @@ function resetAfterErasing() {
   circleY = height - circleSize / 2 - 10;
 
   background(255); // Fully clear the canvas
+}
+
+function resizeScreen() {
+  resizeCanvas(canvasContainer.width(), canvasContainer.height());
 }
