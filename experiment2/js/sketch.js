@@ -141,7 +141,3 @@ function resetAfterErasing() {
 
   background(255); // Fully clear the canvas
 }
-
-function resizeScreen() {
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-}
