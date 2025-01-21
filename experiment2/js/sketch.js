@@ -1,6 +1,4 @@
-let circleSize = 50;
-let circleX;
-let circleY;
+let circleX, circleY, circleSize;
 let redLevel = 0;
 let threshold = 255; // Max red value before the circle starts erasing
 let drawingIntensity = 0; // Tracks how much the user has drawn
@@ -12,27 +10,23 @@ let redIncrementFactor = 10; // Initial rate at which the circle turns red
 
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  let canvas = createCanvas(800, 600);
   canvas.parent("canvas-container");
   background(255);
-  $(window).resize(resizeScreen);
-  resizeScreen();
+  background(255);
 
-  // Set initial circle position
+  circleSize = 50;
   circleX = circleSize / 2 + 10;
-  circleY = circleSize / 2 + 10;
+  circleY = height - circleSize / 2 - 10;
 }
 
 function draw() {
   if (!erasing) {
-    // Draw the circle at the top left
+    // Draw the circle at the bottom left
     fill(255, 255 - redLevel, 255 - redLevel); // Slowly turns red
     stroke(0); // Black outline
     strokeWeight(1);
     ellipse(circleX, circleY, circleSize);
-
-    // Increment redLevel
-    redLevel += redIncrementFactor;
 
     // Check if the threshold is hit
     if (redLevel >= threshold) {
@@ -115,8 +109,8 @@ function resetAfterErasing() {
   // Increase attributes
   eraseSpeed += 1; // Increase speed
   shakeAmount += 2; // Increase shake intensity
-  if (redIncrementFactor > 1) {
-    redIncrementFactor -= 1; // Turn red faster (decrease increment factor)
+  if (redIncrementFactor>1){
+  redIncrementFactor -= 1; // Turn red faster (decrease increment factor)
   }
   // Reset states
   drawingIntensity = 0;
@@ -127,6 +121,3 @@ function resetAfterErasing() {
   background(255); // Fully clear the canvas
 }
 
-function resizeScreen() {
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-}
