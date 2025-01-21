@@ -10,16 +10,13 @@ let redIncrementFactor = 10; // Initial rate at which the circle turns red
 
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  let canvas = createCanvas(800, 600);
   canvas.parent("canvas-container");
   background(255);
 
   circleSize = 50;
   circleX = circleSize / 2 + 10;
   circleY = height - circleSize / 2 - 10;
-
-  $(window).resize(resizeScreen);
-  resizeScreen();
 }
 
 function draw() {
@@ -102,6 +99,28 @@ function chaseAndErase() {
     resetAfterErasing();
   }
 }
+
+function resetAfterErasing() {
+  // Reset the state after erasing is complete
+  erasing = false;
+  allErased = false;
+
+  // Increase attributes
+  eraseSpeed += 1; // Increase speed
+  shakeAmount += 2; // Increase shake intensity
+  if (redIncrementFactor>1){
+  redIncrementFactor -= 1; // Turn red faster (decrease increment factor)
+  }
+  // Reset states
+  drawingIntensity = 0;
+  redLevel = 0;
+  circleX = circleSize / 2 + 10;
+  circleY = height - circleSize / 2 - 10;
+
+  background(255); // Fully clear the canvas
+}
+
+
 
 function resetAfterErasing() {
   // Reset the state after erasing is complete
