@@ -136,6 +136,11 @@ function setup() {
   resizeScreen();
 }
 
+function draw() {
+  background(255);
+  circleInstance.drawCircle();
+}
+
 function mouseDragged() {
   circleInstance.handleDrawing(mouseX, mouseY, pmouseX, pmouseY);
 }
