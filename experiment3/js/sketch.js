@@ -239,6 +239,11 @@ function setup() {
   canvasContainer = $("#canvas-container");
   let canvas = createCanvas(CITY_SIZE + MARGIN * 2, CITY_SIZE + MARGIN * 2);
   canvas.parent("canvas-container");
+  $(".minor-section").css({
+    width: CITY_SIZE + MARGIN * 2 + "px",
+    height: CITY_SIZE + MARGIN * 2 + "px"
+  });
+
   roads = [];
   buildings = [];
   planes = Array.from({ length: 5 }, () => new Plane());
