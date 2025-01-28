@@ -1,6 +1,6 @@
 
 let MARGIN = 64;
-let CITY_SIZE = 800;
+let CITY_SIZE = 546;
 let CITY_NAME = '';
 
 let MAJOR_ROAD_CHANCE = 0.99;
@@ -235,14 +235,15 @@ class Explosion {
   }
 }
 
+function resizeScreen() {
+  let container = $("#canvas-container");
+  resizeCanvas(container.width(), container.height());
+}
+
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(CITY_SIZE + MARGIN * 2, CITY_SIZE + MARGIN * 2);
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
-  $(".minor-section").css({
-    width: CITY_SIZE + MARGIN * 2 + "px",
-    height: CITY_SIZE + MARGIN * 2 + "px"
-  });
 
   roads = [];
   buildings = [];
