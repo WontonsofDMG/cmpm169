@@ -1,6 +1,6 @@
 
 let MARGIN = 64;
-let CITY_SIZE = 800;
+let CITY_SIZE = 400;
 let CITY_NAME = '';
 
 let MAJOR_ROAD_CHANCE = 0.99;
@@ -233,14 +233,6 @@ class Explosion {
   isFinished() {
     return this.timeLeft <= 0;
   }
-}
-
-function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
 }
 
 function setup() {
