@@ -25,12 +25,6 @@ let explosions = [];
 let mapBuilt = false;
 let citySnapshot;
 
-let explosionSound;
-
-function preload() {
-  explosionSound = loadSound('sound.wav');
-}
-
 class Building {
   constructor(position, h, angle) {
     this.position = position.copy();
