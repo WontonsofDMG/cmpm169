@@ -235,11 +235,6 @@ class Explosion {
   }
 }
 
-function resizeScreen() {
-  let container = $("#canvas-container");
-  resizeCanvas(container.width(), container.height());
-}
-
 function setup() {
   canvasContainer = $("#canvas-container");
   let canvas = createCanvas(CITY_SIZE + MARGIN * 2, CITY_SIZE + MARGIN * 2);
@@ -258,10 +253,6 @@ function setup() {
   }
   background(20);
   stroke(230);
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
 }
 
 function draw() {
