@@ -25,6 +25,12 @@ let explosions = [];
 let mapBuilt = false;
 let citySnapshot;
 
+let explosionSound;
+
+function preload() {
+  explosionSound = loadSound('sound.wav');
+}
+
 class Building {
   constructor(position, h, angle) {
     this.position = position.copy();
@@ -215,6 +221,7 @@ class Explosion {
   constructor(position) {
     this.position = position.copy();
     this.timeLeft = 30; // Frames to display the explosion
+    explosionSound.play();
   }
 
   update() {
