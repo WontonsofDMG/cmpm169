@@ -1,6 +1,6 @@
 
 let MARGIN = 64;
-let CITY_SIZE = 800;
+let CITY_SIZE = 400;
 let CITY_NAME = '';
 
 let MAJOR_ROAD_CHANCE = 0.99;
