@@ -215,7 +215,6 @@ class Explosion {
   constructor(position) {
     this.position = position.copy();
     this.timeLeft = 30; // Frames to display the explosion
-    explosionSound.play();
   }
 
   update() {
