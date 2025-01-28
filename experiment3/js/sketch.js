@@ -1,6 +1,6 @@
 
 let MARGIN = 64;
-let CITY_SIZE = 546;
+let CITY_SIZE = 800;
 let CITY_NAME = '';
 
 let MAJOR_ROAD_CHANCE = 0.99;
@@ -242,7 +242,7 @@ function resizeScreen() {
 
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  let canvas = createCanvas(CITY_SIZE + MARGIN * 2, CITY_SIZE + MARGIN * 2);
   canvas.parent("canvas-container");
 
   roads = [];
