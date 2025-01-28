@@ -258,16 +258,8 @@ function setup() {
       roads.push(new Road(5, p, random(TWO_PI)));
     }
   }
-  let startButton = createButton('Enable Sound');
-  startButton.position(10, 10);
-  startButton.mousePressed(startSound);
   background(20);
   stroke(230);
-}
-
-function startSound() {
-  // Play the sound to start the AudioContext
-  getAudioContext().resume();
 }
 
 function draw() {
