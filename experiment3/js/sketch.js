@@ -235,6 +235,14 @@ class Explosion {
   }
 }
 
+function resizeScreen() {
+  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
+  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
+  console.log("Resizing...");
+  resizeCanvas(canvasContainer.width(), canvasContainer.height());
+  // redrawCanvas(); // Redraw everything based on new size
+}
+
 function setup() {
   canvasContainer = $("#canvas-container");
   let canvas = createCanvas(CITY_SIZE + MARGIN * 2, CITY_SIZE + MARGIN * 2);
@@ -252,6 +260,10 @@ function setup() {
   }
   background(20);
   stroke(230);
+  $(window).resize(function() {
+    resizeScreen();
+  });
+  resizeScreen();
 }
 
 function draw() {
