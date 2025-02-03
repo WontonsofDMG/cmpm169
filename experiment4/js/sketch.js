@@ -34,6 +34,11 @@ function draw() {
   prevFrame.loadPixels();
   
   loadPixels();
+
+  translate(width, 0);
+  scale(-1, 1);
+  image(video, 0, 0, width, height);
+
   
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
