@@ -32,8 +32,8 @@ function setup() {
   gravitySlider.position(40, height + 140);
   gravitySlider.style('width', '100px');
   
-  camera(-200, -180, 400, 0, 20, 0, 0, 1, 0);
-  
+  camera(-200, -180, 400, 0, 10, 0, 0, 1, 0);
+
   for (let i = 0; i < numRaindrops; i++) {
     positions.push(createVector(random(-width / 2, width / 2), random(-height / 2, height / 2), random(-200, 200)));
     velocities.push(createVector(random(-0.5, 0.5), random(1, 3), 0));
