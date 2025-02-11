@@ -25,11 +25,11 @@ function setup() {
   // resize canvas is the page is resized
   
   windSlider = createSlider(-5, 5, 0, 0.1);
-  windSlider.position(150, height + 110);
+  windSlider.position(90, height + 110);
   windSlider.style('width', '100px');
 
   gravitySlider = createSlider(0.1, 5, 1, 0.1);
-  gravitySlider.position(150, height + 140);
+  gravitySlider.position(90, height + 140);
   gravitySlider.style('width', '100px');
   
   camera(-200, -200, 400, 0, 0, 0, 0, 1, 0);
