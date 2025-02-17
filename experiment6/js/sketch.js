@@ -136,9 +136,9 @@ function draw() {
     }
     
     // Input and Send Button
-    userInput.position(330, 600 - 40);
+    userInput.position(330, 800 - 40);
     userInput.size(160, 30);
-    sendButton.position(500, 600 - 25);
+    sendButton.position(500, 800 - 25);
 }else
   {
   //after the crash end game screen
