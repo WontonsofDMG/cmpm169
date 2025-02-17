@@ -20,10 +20,10 @@ let lightPoleSwitchThreshold = 15; // Adjust switch interval as needed
 let switchPoles = false; // State to track switching
 
 function preload() {
-  carSpriteSheet = loadImage('spr_red_coupe_0.png'); // Load spritesheet
-  dashboard = loadImage('cardash.png');
-  npcSpriteSheet1= loadImage('jeep_trailcat.png'); // Load spritesheet
-  npcSpriteSheet2= loadImage('ferrari_laferrari-export.png'); // Load spritesheet
+  carSpriteSheet = loadImage('./spr_red_coupe_0.png'); // Load spritesheet
+  dashboard = loadImage('./cardash.png');
+  npcSpriteSheet1= loadImage('./jeep_trailcat.png'); // Load spritesheet
+  npcSpriteSheet2= loadImage('./ferrari_laferrari-export.png'); // Load spritesheet
   
 }
 
