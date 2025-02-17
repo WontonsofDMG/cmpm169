@@ -38,6 +38,7 @@ function setup() {
   startButton.mousePressed(startGame);
 }
 function startGame() {
+  engineSound.setVolume(0.7);
   engineSound.loop();
   gameStarted = true;
   startButton.hide();
