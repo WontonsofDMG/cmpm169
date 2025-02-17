@@ -36,6 +36,7 @@ function startConversation() {
     chatLog.push(initialMessages[selectedRole]);
     lastbot=initialMessages[selectedRole];
     messageTypes.push("bot");
+    textSound.play();
 }
 
 function generatePhoneNumber() {
@@ -76,6 +77,7 @@ async function sendMessage() {
         if (jsonResponse.error) {
             console.error("API Error:", jsonResponse.error);
             chatLog.push("(Error: could not send your message)");
+            textSound.play();
             messageTypes.push("bot");
             return;
         }
@@ -84,14 +86,17 @@ async function sendMessage() {
             let botReply = jsonResponse.candidates[0].content.parts[0].text;
             lastbot=botReply;
             chatLog.push(botReply);
+            textSound.play();
             messageTypes.push("bot");
         } else {
             chatLog.push("(Error: phone lost connection)");
+            textSound.play();
             messageTypes.push("bot");
         }
     } catch (error) {
         console.error("Fetch error:", error);
         chatLog.push("(Error: phone lost their message)");
+        textSound.play();
         messageTypes.push("bot");
     }
 }
