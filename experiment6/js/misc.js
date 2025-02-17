@@ -24,7 +24,9 @@ function preload() {
   dashboard = loadImage('../experiment6/cardash.png');
   npcSpriteSheet1= loadImage('../experiment6/jeep_trailcat.png'); // Load spritesheet
   npcSpriteSheet2= loadImage('../experiment6/ferrari_laferrari-export.png'); // Load spritesheet
-  
+  engineSound = loadSound('../experiment6/engine-47745.mp3');
+  crashSound = loadSound('../experiment6/crash.wav');
+
 }
 
 class NpcCar {

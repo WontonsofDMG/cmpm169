@@ -1,4 +1,7 @@
 EndGame=false;
+let engineSound;
+let startButton;
+let gameStarted = false;
 
 function setup() {
     // place our canvas, making it fit our container
@@ -28,9 +31,25 @@ function setup() {
     phoneNumber = generatePhoneNumber();
     scrollOffset = 0;
     startConversation();
+  
+  // Create start button
+  startButton = createButton('Start Game');
+  startButton.position(width/2, height/2);
+  startButton.mousePressed(startGame);
 }
-
+function startGame() {
+  engineSound.loop();
+  gameStarted = true;
+  startButton.hide();
+}
 function draw() {
+  if (!gameStarted) {
+    background(200);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text('Press Start to Begin', width / 2, height / 2);
+    return;
+  }
   if (EndGame===false){
   background(50, 180, 50);
   drawScene();
@@ -69,6 +88,8 @@ function draw() {
     if (checkCollision(car, npc)===true) {
     console.log("Collision detected!");
       EndGame=true;
+      engineSound.stop();
+      crashSound.play();
   }
   }
    // Remove cars that move off-screen
