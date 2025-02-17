@@ -134,7 +134,7 @@ function draw() {
         let bubbleColor = isUser ? color(0, 122, 255) : color(230);
         let textColor = isUser ? color(255) : color(0);
         let lines = splitText(msg, maxWidth-10);
-        let bubbleHeight = lines.length * 20 + 10;
+        let bubbleHeight = lines.length * 24 + 10;
         
         y -= bubbleHeight + 10;
         if (y < chatStartY) break;
@@ -148,7 +148,7 @@ function draw() {
         let lineY = y + 20;
         for (let line of lines) {
             text(line, bubbleX + 10, lineY);
-            lineY += 20;
+            lineY += 24;
         }
     }
     
