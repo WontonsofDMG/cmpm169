@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 let userInput, sendButton, chatLog, selectedRole, phoneNumber, scrollOffset, messageTypes;
 let totalmessages=0;
 let lastmessage="Unsent",lastbot;
@@ -55,7 +57,7 @@ async function sendMessage() {
     let systemMessage = roles[selectedRole] + "Always keep user texting back. Your initial message was: " + initialMessages[selectedRole];
     
     try {
-        let response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAT7s2OWP7dySDt2dlZA2awdwYbzfPLzgE", {
+        let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.API_KEY}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -72,7 +74,7 @@ async function sendMessage() {
         
         let jsonResponse = await response.json();
         console.log("API Response:", jsonResponse);
-      console.log( lastmessage + " " + lastbot + " message count:" +totalmessages)
+        console.log(lastmessage + " " + lastbot + " message count:" + totalmessages);
         
         if (jsonResponse.error) {
             console.error("API Error:", jsonResponse.error);
