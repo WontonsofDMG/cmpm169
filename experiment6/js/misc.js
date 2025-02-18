@@ -95,12 +95,12 @@ class NpcCar {
       image(npcFrames[this.frame], this.x-20, this.y, w/1.5, h/1.5);
     }
      // Draw hitbox for debugging
-    push();
-    noFill();
-    stroke(255, 0, 0);
-    rectMode(CENTER);
-    rect(this.x-20, this.y+5, w/2.6, h/3);
-    pop();
+    //push();
+    //noFill();
+    //stroke(255, 0, 0);
+    //rectMode(CENTER);
+    //rect(this.x-20, this.y+5, w/2.6, h/3);
+    //pop();
   }
   getHitbox() {
     let scaleFactor = map(this.y, height / 3, height, 0.5, 1);
@@ -160,12 +160,12 @@ class Car {
     imageMode(CENTER);
     image(carFrames[0], screenX, screenY, w, h);
      // Draw hitbox for debugging (Adjusted)
-    push();
-    noFill();
-    stroke(0, 255, 0);
-    rectMode(CENTER);
-    rect(screenX - 20, screenY+20, w / 2.5, h / 3);
-    pop();
+    //push();
+    //noFill();
+    //stroke(0, 255, 0);
+    //rectMode(CENTER);
+    //rect(screenX - 20, screenY+20, w / 2.5, h / 3);
+    //pop();
     
   }
   
