@@ -1,4 +1,3 @@
-require('dotenv').config();
 
 let userInput, sendButton, chatLog, selectedRole, phoneNumber, scrollOffset, messageTypes;
 let totalmessages=0;
