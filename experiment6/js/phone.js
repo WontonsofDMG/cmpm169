@@ -56,7 +56,7 @@ async function sendMessage() {
     let systemMessage = roles[selectedRole] + "Always keep user texting back. Your initial message was: " + initialMessages[selectedRole];
     
     try {
-        let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAT7s2OWP7dySDt2dlZA2awdwYbzfPLzgE`, {
+        let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.API_KEY }}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
