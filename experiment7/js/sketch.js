@@ -62,7 +62,7 @@ function setup() {
   text("Click to start the mic", width/2, height/2);
   
   // Create a slider to adjust sensitivity (0 = no mic effect, 5 = high sensitivity)
-  sensitivitySlider = createSlider(1, 5, 1.5, 0.1);
+  sensitivitySlider = createSlider(1, 5, 2.5, 0.1);
   sensitivitySlider.position(40, height + 140);
 }
 
