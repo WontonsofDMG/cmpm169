@@ -47,7 +47,7 @@ function setup() {
   }
   
   // Set the baseline roughly in the middle.
-  baseline = height / 1.5;
+  baseline = height / 2;
   boatXIndex = floor(numPoints / 2);
   
   // Set up microphone input and amplitude analyzer.
