@@ -89,7 +89,7 @@ function draw() {
   
   // Create a base sine wave (amplitude 40) so the ocean isn't flat in silence.
   // (This wave is allowed to have large variations.)
-  let baseWaveVal = sin(frameCount * 0.1) * 40;
+  let baseWaveVal = sin(frameCount * 0.1) * 15;
   
   // Combine the base wave with mic input (scaled by sensitivity).
   let newVal = baseWaveVal + micVal * sensitivity;
