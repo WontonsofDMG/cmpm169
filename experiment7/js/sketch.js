@@ -25,7 +25,7 @@ let boatFloatOffset = 10;
 // If the boat falls more than sinkingThreshold pixels below its target for sinkingTimerThreshold frames,
 // then the boat stops following the wave and begins sinking.
 let sinkingThreshold = 20;        // Pixels below target that trigger sinking mode
-let sinkingTimerThreshold = 20;     // Number of consecutive frames
+let sinkingTimerThreshold = 17;     // Number of consecutive frames
 let underwaterTimer = 0;
 let boatSinking = false;            // Whether the boat is in sinking mode
 
@@ -174,6 +174,7 @@ function draw() {
   translate(boatX, boatY);
   if (boatSinking) {
     rotate(PI); // Flip the boat upside down when sinking
+    g_air=0.9;
   } else {
     rotate(angle); // Normal wave tilt rotation
   }
