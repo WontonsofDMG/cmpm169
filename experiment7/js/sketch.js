@@ -100,7 +100,7 @@ function draw() {
   
   // Optionally smooth the wave for a natural appearance.
   for (let i = 1; i < wave.length - 1; i++) {
-    wave[i] = (wave[i - 1] + wave[i] + wave[i + 1]) / 1.5;
+    wave[i] = (wave[i - 1] + wave[i] + wave[i + 1]) / 3;
   }
   
   // Draw the wave as a continuous line.
