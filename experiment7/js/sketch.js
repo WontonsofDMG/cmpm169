@@ -25,7 +25,7 @@ let boatFloatOffset = 10;
 // If the boat falls more than sinkingThreshold pixels below its target for sinkingTimerThreshold frames,
 // then the boat stops following the wave and begins sinking.
 let sinkingThreshold = 20;        // Pixels below target that trigger sinking mode
-let sinkingTimerThreshold = 10;     // Number of consecutive frames
+let sinkingTimerThreshold = 15;     // Number of consecutive frames
 let underwaterTimer = 0;
 let boatSinking = false;            // Whether the boat is in sinking mode
 
