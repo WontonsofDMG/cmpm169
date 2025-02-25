@@ -152,7 +152,11 @@ function draw() {
     }
   } else {
     // In sinking mode: disable spring force; apply only strong gravity.
-    boatVy = (boatVy + g_water) * damping;
+    let effectiveGravity = g_water;
+    if (boatY < baseline + wave[boatXIndex]) {
+      effectiveGravity *= 2; // Increase gravity if the boat is above the wave line
+    }
+    boatVy = (boatVy + effectiveGravity) * damping;
     boatY += boatVy;
     // Spawn bubbles as the boat sinks.
     if (frameCount % 3 === 0) {
@@ -174,7 +178,6 @@ function draw() {
   translate(boatX, boatY);
   if (boatSinking) {
     rotate(PI); // Flip the boat upside down when sinking
-    g_air=0.9;
   } else {
     rotate(angle); // Normal wave tilt rotation
   }
