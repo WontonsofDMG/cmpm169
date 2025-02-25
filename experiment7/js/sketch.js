@@ -154,7 +154,7 @@ function draw() {
     // In sinking mode: disable spring force; apply only strong gravity.
     let effectiveGravity = g_water;
     if (boatY < baseline + wave[boatXIndex]) {
-      effectiveGravity *= 2; // Increase gravity if the boat is above the wave line
+      effectiveGravity *= 3; // Increase gravity if the boat is above the wave line
     }
     boatVy = (boatVy + effectiveGravity) * damping;
     boatY += boatVy;
