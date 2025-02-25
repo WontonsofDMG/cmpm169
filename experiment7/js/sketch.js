@@ -92,7 +92,7 @@ function draw() {
   let baseWaveVal = sin(frameCount * 0.1) * 15;
   
   // Combine the base wave with mic input (scaled by sensitivity).
-  let newVal = baseWaveVal + micVal * sensitivity;
+  let newVal = baseWaveVal - micVal * sensitivity;
   
   // Shift the wave array to simulate travel.
   wave.pop();
