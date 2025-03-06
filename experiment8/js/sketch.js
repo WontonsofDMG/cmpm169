@@ -1,6 +1,4 @@
 
-let canvasContainer;
-
 let mic;
 let fft;
 let city;
@@ -36,10 +34,18 @@ function setup() {
   canvas.parent("canvas-container");
   mic = new p5.AudioIn();
   mic.start();
-  fft = new p5.FFT();
-  fft.setInput(mic);
+  getAudioContext().suspend();
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  fill(255);
+  text("Click to start the mic", width/2, height/2);
   generateCity2D();
   generateRunners();
+  canvas.mousePressed(() => {
+    getAudioContext().resume();
+  });
+  fft = new p5.FFT();
+  fft.setInput(mic);
 }
 
 function draw() {
