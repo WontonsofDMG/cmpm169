@@ -32,7 +32,7 @@ function preload() {
 
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  let canvas = createCanvas(800, 600);
   canvas.parent("canvas-container");
   mic = new p5.AudioIn();
   mic.start();
