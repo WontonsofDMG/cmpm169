@@ -24,10 +24,10 @@ const SPRITE_COLUMNS = 8;
 const CHARACTER_COUNT = 4;
 
 function preload() {
-  headImg = loadImage('../experiment6/headlol.png');
-  bodyImg = loadImage('../experiment6/body.png');
-  guysImg = loadImage('../experiment6/guys.png');
-  nightImg = loadImage('../experiment6/starrynight.png');
+  headImg = loadImage('../experiment8/headlol.png');
+  bodyImg = loadImage('../experiment8/body.png');
+  guysImg = loadImage('../experiment8/guys.png');
+  nightImg = loadImage('../experiment8/starrynight.png');
 }
 
 function setup() {
