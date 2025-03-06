@@ -1,4 +1,3 @@
-
 let mic;
 let fft;
 let city;
@@ -20,6 +19,16 @@ let fireLocations = {};
 
 const SPRITE_COLUMNS = 8;
 const CHARACTER_COUNT = 4;
+
+let prevBeamColor;
+let smoothedBeamLength = 0; // Global variable for smoothed beam length
+let smoothedSoundVolume = 0; // Global variable for smoothed sound volume
+let smoothedBeamThickness = 0; // Global variable for smoothed beam thickness
+let smoothedZigzagAmount = 0; // Global variable for smoothed zigzag amount
+let smoothedZigzagCount = 0; // Global variable for smoothed zigzag count
+let smoothingFactor = 0.2; // Global smoothing factor
+
+let micSensitivitySlider, trebleSensitivitySlider, midSensitivitySlider, bassSensitivitySlider;
 
 function preload() {
   headImg = loadImage('../experiment8/headlol.png');
@@ -46,6 +55,27 @@ function setup() {
   });
   fft = new p5.FFT();
   fft.setInput(mic);
+  prevBeamColor = color(255, 165, 0);
+
+  createDiv('Mic Sensitivity').position(width+60, height- 100);
+  micSensitivitySlider = createSlider(0.6, 10, 1.5, 0.1).position(width+60, height-80);
+
+  createDiv('Mid Sensitivity').position(width+60, height-60);
+  midSensitivitySlider = createSlider(0.1, 5, 0.5, 0.1).position(width+60, height-40);
+
+  createDiv('Treble Sensitivity').position(width+60, height-20);
+  trebleSensitivitySlider = createSlider(0.1, 1, 0.5, 0.1).position(width+60, height);
+
+  createDiv('Bass Sensitivity').position(width+60, height+20);
+  bassSensitivitySlider = createSlider(0.1, 1.5, 1, 0.05).position(width+60, height+40);
+
+}
+
+function interpolateColor(color1, color2, factor) {
+  let r = lerp(red(color1), red(color2), factor);
+  let g = lerp(green(color1), green(color2), factor);
+  let b = lerp(blue(color1), blue(color2), factor);
+  return color(r, g, b);
 }
 
 function draw() {
@@ -69,50 +99,69 @@ function draw() {
 
   let angle = atan2(mouseY - headY, mouseX - headX);
 
-  //push();
-  //translate(headX, headY);
-  //scale(-1, 1); // Flip rotation so it faces correctly
-  //rotate(-angle);
-  //textSize(100);
-  //textAlign(CENTER, CENTER);
-  //text("🦖", 40, 35);
-  //pop();
-   // Draw body
+  // Draw body
   imageMode(CENTER);
   image(bodyImg, bodyX, bodyY, 150, 150);
 
-  
   let spectrum = fft.analyze();
-  let soundVolume = mic.getLevel() * 5;
-  let bass = fft.getEnergy('bass');
-  let treble = fft.getEnergy('treble');
-  let mid = fft.getEnergy('mid');
+  let soundVolume = mic.getLevel() * micSensitivitySlider.value();
+  let bass = fft.getEnergy('bass') * bassSensitivitySlider.value();
+  let treble = fft.getEnergy('treble') * trebleSensitivitySlider.value();
+  let mid = fft.getEnergy('mid') * midSensitivitySlider.value();
 
   let beatDetected = bass > prevEnergy * 1.2;
   prevEnergy = bass;
 
-  let beamThickness = map(bass, 0, 255, 2, 20);
-  let beamLength = map(soundVolume, 0, 1, 20, 1000);
-  let beamColor = color(255, 0, 0, 255);
-  let zigzagAmount = map(treble, 0, 255, 5, 100);
-  let zigzagCount = floor(map(treble, 0, 255, 1, 10));
+  let targetBeamThickness = map(bass, 0, 255, 2, 20);
+  let targetBeamLength = map(soundVolume, 0, 1, 20, 1000);
+  let targetZigzagAmount = map(treble, 0, 255, 5, 100);
+  let targetZigzagCount = floor(map(treble, 0, 255, 1, 10));
 
-  if (noiseOffsets.length < zigzagCount) {
-    for (let i = noiseOffsets.length; i < zigzagCount; i++) {
+  // Smoothly transition to the target values only when retracting
+  smoothedBeamLength = targetBeamLength < smoothedBeamLength ? lerp(smoothedBeamLength, targetBeamLength, smoothingFactor) : targetBeamLength;
+  smoothedSoundVolume = targetBeamLength < smoothedSoundVolume ? lerp(smoothedSoundVolume, soundVolume, smoothingFactor) : soundVolume;
+  smoothedBeamThickness = targetBeamThickness < smoothedBeamThickness ? lerp(smoothedBeamThickness, targetBeamThickness, smoothingFactor) : targetBeamThickness;
+  smoothedZigzagAmount = targetZigzagAmount < smoothedZigzagAmount ? lerp(smoothedZigzagAmount, targetZigzagAmount, smoothingFactor) : targetZigzagAmount;
+  smoothedZigzagCount = targetZigzagCount < smoothedZigzagCount ? lerp(smoothedZigzagCount, targetZigzagCount, smoothingFactor) : targetZigzagCount;
+
+  // Define the colors for the gradient
+  let colorStart = color(255, 165, 0); // Orange
+  let colorMid = color(255, 0, 0); // Red
+  let colorEnd = color(0, 0, 255); // Blue
+
+  // Map the beam length to a factor between 0 and 1
+  let colorFactor = map(smoothedBeamLength, 20, 1000, 0, 1);
+
+  // Interpolate between orange and red for the first quarter, then red and blue for the last quarter
+  let targetBeamColor;
+  if (colorFactor < 0.25) {
+    targetBeamColor = interpolateColor(colorStart, colorMid, colorFactor / 0.25);
+  } else if (colorFactor < 0.75) {
+    targetBeamColor = interpolateColor(colorMid, colorMid, (colorFactor - 0.25) / 0.5);
+  } else {
+    targetBeamColor = interpolateColor(colorMid, colorEnd, (colorFactor - 0.75) / 0.25);
+  }
+
+  // Smoothly transition to the target color
+  beamColor = interpolateColor(prevBeamColor, targetBeamColor, smoothingFactor);
+  prevBeamColor = beamColor;
+
+  if (noiseOffsets.length < smoothedZigzagCount) {
+    for (let i = noiseOffsets.length; i < smoothedZigzagCount; i++) {
       noiseOffsets.push(random(1000));
     }
   }
 
-  let endX = headX + cos(angle) * beamLength;
-  let endY = headY + sin(angle) * beamLength;
+  let endX = headX + cos(angle) * smoothedBeamLength;
+  let endY = headY + sin(angle) * smoothedBeamLength;
 
-  if (soundVolume > 0.05) {
-    drawBaseLaser(headX, headY, endX, endY, beamThickness, beamColor, beatDetected);
-    for (let i = 0; i < zigzagCount; i++) {
+  if (smoothedSoundVolume > 0.05) {
+    drawBaseLaser(headX, headY, endX, endY, smoothedBeamThickness, beamColor, beatDetected);
+    for (let i = 0; i < smoothedZigzagCount; i++) {
       let noiseOffset = noiseOffsets[i];
-      drawElectricZigzag(headX, headY, endX, endY, beamThickness / (i + 1), beamColor, zigzagAmount, noiseOffset, beatDetected);
-      }
-    drawOrbs(headX, headY, endX, endY, mid);
+      drawElectricZigzag(headX, headY, endX, endY, smoothedBeamThickness / (i + 1), beamColor, smoothedZigzagAmount, noiseOffset, beatDetected);
+    }
+    drawOrbs(headX, headY, endX, endY, mid, smoothedBeamThickness);
     checkRunnerHits(headX, headY, endX, endY);
   }
 
@@ -282,13 +331,14 @@ function drawElectricZigzag(x1, y1, x2, y2, thickness, col, zigzag, noiseOffset,
 }
 
 
-function drawOrbs(x1, y1, x2, y2, midEnergy) {
+function drawOrbs(x1, y1, x2, y2, midEnergy, beamThickness) {
   let orbCount = floor(map(midEnergy, 0, 255, 0, 55));
   for (let i = 0; i < orbCount; i++) {
     let t = (i + 1) / (orbCount + 1);
     let x = lerp(x1, x2, t);
     let y = lerp(y1, y2, t);
-    let offsetY = sin(frameCount * 0.1 + i) * 10;
+    let offsetY = sin(frameCount * 0.1 + i) * (beamThickness * 0.5); // Adjust offsetY based on beam thickness
+    
     fill(255, 255, 0, 150);
     noStroke();
     ellipse(x, y + offsetY, 5, 5);

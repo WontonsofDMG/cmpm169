@@ -6,6 +6,20 @@ canvas {
     height: 100%;
 }
 
+.centered-slider {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+  }
+  
+.centered-slider input[type="range"] {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 /* Center the canvas element on the page */
 body {
     display: flex;
