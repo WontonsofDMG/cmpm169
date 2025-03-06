@@ -58,7 +58,7 @@ function setup() {
   prevBeamColor = color(255, 165, 0);
 
   createDiv('Mic Sensitivity').position(width+60, height- 100);
-  micSensitivitySlider = createSlider(0.6, 10, 1.5, 0.1).position(width+60, height-80);
+  micSensitivitySlider = createSlider(0.6, 20, 2.5, 0.1).position(width+60, height-80);
 
   createDiv('Mid Sensitivity').position(width+60, height-60);
   midSensitivitySlider = createSlider(0.1, 5, 0.5, 0.1).position(width+60, height-40);
